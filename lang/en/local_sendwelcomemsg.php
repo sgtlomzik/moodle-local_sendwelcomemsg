@@ -1,0 +1,20 @@
+<?php
+$string['pluginname'] = 'Send Welcome Messages';
+$string['emailsetting'] = 'Email Settings';
+$string['enableemail'] = 'Enable Email';
+$string['fromemail'] = 'Sender Email';
+$string['fromname'] = 'Sender Name';
+$string['emailsubject'] = 'Email Subject';
+$string['emailstyle'] = 'Email Style';
+$string['emailbody'] = 'Email Body';
+$string['emailattachment'] = 'Email Attachment';
+$string['smtpsettings'] = 'SMTP Settings';
+$string['smtphost'] = 'SMTP Host';
+$string['smtpport'] = 'SMTP Port';
+$string['smtpencryption'] = 'Encryption';
+$string['smtplogin'] = 'SMTP Login';
+$string['smtppassword'] = 'SMTP Password';
+$string['targetdomain'] = 'Target email domain';
+$string['expandsection'] = 'Expand email block';
+$string['statusactive'] = 'active';
+$string['statusinactive'] = 'inactive';

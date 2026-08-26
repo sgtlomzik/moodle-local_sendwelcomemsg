@@ -1,0 +1,20 @@
+<?php
+$string['pluginname'] = 'Отправить приветственные сообщения';
+$string['emailsetting'] = 'Настройки письма';
+$string['enableemail'] = 'Включить письмо';
+$string['fromemail'] = 'Email отправителя';
+$string['fromname'] = 'Имя отправителя';
+$string['emailsubject'] = 'Тема письма';
+$string['emailstyle'] = 'Стиль письма';
+$string['emailbody'] = 'Текст письма';
+$string['emailattachment'] = 'Вложение для письма';
+$string['smtpsettings'] = 'SMTP настройки для письма';
+$string['smtphost'] = 'SMTP хост';
+$string['smtpport'] = 'SMTP порт';
+$string['smtpencryption'] = 'Шифрование';
+$string['smtplogin'] = 'SMTP логин';
+$string['smtppassword'] = 'SMTP пароль';
+$string['targetdomain'] = 'Домен email (для шаблона)';
+$string['expandsection'] = 'Развернуть блок письма';
+$string['statusactive'] = 'активно';
+$string['statusinactive'] = 'не активно';
