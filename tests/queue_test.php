@@ -39,6 +39,9 @@ defined('MOODLE_INTERNAL') || die();
  */
 final class queue_test extends \advanced_testcase {
 
+    /**
+     * Creating a user queues a welcome message.
+     */
     public function test_creating_a_user_queues_a_welcome_message(): void {
         global $DB;
 
@@ -49,6 +52,9 @@ final class queue_test extends \advanced_testcase {
         $this->assertTrue($DB->record_exists('local_sendwelcomemsg_queue', ['userid' => $user->id]));
     }
 
+    /**
+     * A user is only queued once.
+     */
     public function test_a_user_is_only_queued_once(): void {
         global $DB;
 
@@ -62,6 +68,9 @@ final class queue_test extends \advanced_testcase {
         $this->assertSame(1, $DB->count_records('local_sendwelcomemsg_queue', ['userid' => $user->id]));
     }
 
+    /**
+     * The task clears the queue when no template is enabled.
+     */
     public function test_the_task_clears_the_queue_when_no_template_is_enabled(): void {
         global $DB;
 
@@ -77,6 +86,9 @@ final class queue_test extends \advanced_testcase {
         $this->assertFalse($DB->record_exists('local_sendwelcomemsg_queue', ['userid' => $user->id]));
     }
 
+    /**
+     * The task drops deleted users.
+     */
     public function test_the_task_drops_deleted_users(): void {
         global $DB;
 
