@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Serve files belonging to this plugin.
  *
@@ -39,7 +37,14 @@ defined('MOODLE_INTERNAL') || die();
  * @param array $options Additional options affecting the file serving.
  * @return bool Always false: nothing in this plugin is served over pluginfile.
  */
-function local_sendwelcomemsg_pluginfile($course, $cm, $context, $filearea, $args,
-        $forcedownload, array $options = []) {
+function local_sendwelcomemsg_pluginfile(
+    $course,
+    $cm,
+    $context,
+    $filearea,
+    $args,
+    $forcedownload,
+    array $options = []
+) {
     return false;
 }

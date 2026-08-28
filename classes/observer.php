@@ -24,8 +24,6 @@
 
 namespace local_sendwelcomemsg;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Puts newly created users on the welcome message queue.
  *
@@ -34,7 +32,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class observer {
-
     /**
      * Queue a welcome message for a newly created user.
      *

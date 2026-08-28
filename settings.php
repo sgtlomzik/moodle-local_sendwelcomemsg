@@ -25,8 +25,10 @@
 defined('MOODLE_INTERNAL') || die();
 
 if ($hassiteconfig) {
-    $settings = new admin_settingpage('local_sendwelcomemsg',
-        get_string('pluginname', 'local_sendwelcomemsg'));
+    $settings = new admin_settingpage(
+        'local_sendwelcomemsg',
+        get_string('pluginname', 'local_sendwelcomemsg')
+    );
 
     $encryptionchoices = [
         '' => get_string('smtpencryptionnone', 'local_sendwelcomemsg'),
@@ -58,7 +60,10 @@ if ($hassiteconfig) {
             ]
         );
         $settings->add(new \local_sendwelcomemsg\admin_setting_accordion(
-            "local_sendwelcomemsg/mail{$i}", $headinghtml, ''));
+            "local_sendwelcomemsg/mail{$i}",
+            $headinghtml,
+            ''
+        ));
 
         $settings->add(new admin_setting_configcheckbox(
             "local_sendwelcomemsg/enable{$i}",
@@ -149,14 +154,19 @@ if ($hassiteconfig) {
             0
         ));
 
-        foreach ([
+        foreach (
+            [
             'enable', 'domain', 'from%d_email', 'from%d_name', 'subject', 'style', 'body',
             'attachment', 'smtp%d_host', 'smtp%d_port', 'smtp%d_secure', 'smtp%d_user',
             'smtp%d_pass', 'smtp%d_allowinsecure',
-        ] as $name) {
+            ] as $name
+        ) {
             $suffix = strpos($name, '%d') === false ? $name . $i : sprintf($name, $i);
-            $settings->hide_if("local_sendwelcomemsg/{$suffix}",
-                "local_sendwelcomemsg/expanded{$i}", 'notchecked');
+            $settings->hide_if(
+                "local_sendwelcomemsg/{$suffix}",
+                "local_sendwelcomemsg/expanded{$i}",
+                'notchecked'
+            );
         }
     }
 

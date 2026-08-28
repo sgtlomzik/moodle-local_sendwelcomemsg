@@ -26,8 +26,6 @@ namespace local_sendwelcomemsg\task;
 
 use PHPMailer\PHPMailer\PHPMailer;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Sends the configured welcome messages to users waiting on the queue.
  *
@@ -36,7 +34,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class send_welcome_emails extends \core\task\scheduled_task {
-
     /** @var int Number of configurable message templates. */
     public const TEMPLATES = 5;
 
@@ -65,8 +62,14 @@ class send_welcome_emails extends \core\task\scheduled_task {
 
         $config = get_config('local_sendwelcomemsg');
 
-        $records = $DB->get_records('local_sendwelcomemsg_queue', null, 'timecreated ASC, id ASC',
-            '*', 0, self::BATCH_SIZE);
+        $records = $DB->get_records(
+            'local_sendwelcomemsg_queue',
+            null,
+            'timecreated ASC, id ASC',
+            '*',
+            0,
+            self::BATCH_SIZE
+        );
 
         foreach ($records as $record) {
             $user = \core_user::get_user($record->userid);
@@ -203,7 +206,13 @@ class send_welcome_emails extends \core\task\scheduled_task {
         $fs = get_file_storage();
         $context = \context_system::instance();
 
-        return $fs->get_area_files($context->id, 'local_sendwelcomemsg', "attachment{$index}", 0,
-            'itemid, filepath, filename', false);
+        return $fs->get_area_files(
+            $context->id,
+            'local_sendwelcomemsg',
+            "attachment{$index}",
+            0,
+            'itemid, filepath, filename',
+            false
+        );
     }
 }

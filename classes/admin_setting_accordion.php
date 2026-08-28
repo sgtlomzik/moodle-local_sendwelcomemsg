@@ -24,8 +24,6 @@
 
 namespace local_sendwelcomemsg;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * A settings heading that loads the accordion behaviour when it is rendered.
  *
@@ -38,7 +36,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class admin_setting_accordion extends \admin_setting_heading {
-
     /** @var bool Whether the AMD module has already been requested for this page. */
     protected static $jsloaded = false;
 

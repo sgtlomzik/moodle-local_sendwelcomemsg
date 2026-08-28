@@ -26,8 +26,6 @@ namespace local_sendwelcomemsg;
 
 use local_sendwelcomemsg\task\send_welcome_emails;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Tests covering how users reach and leave the queue.
  *
@@ -38,7 +36,6 @@ defined('MOODLE_INTERNAL') || die();
  * @covers     \local_sendwelcomemsg\task\send_welcome_emails
  */
 final class queue_test extends \advanced_testcase {
-
     /**
      * Creating a user queues a welcome message.
      */
