@@ -1,0 +1,13 @@
+/* Settings page accordion for local_sendwelcomemsg. */
+
+.path-admin .local-sendwelcomemsg-toggle {
+    cursor: pointer;
+}
+
+.path-admin .local-sendwelcomemsg-status {
+    font-weight: normal;
+}
+
+.path-admin .local-sendwelcomemsg-hidden {
+    display: none;
+}
