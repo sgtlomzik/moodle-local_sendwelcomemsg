@@ -24,8 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-use local_sendwelcomemsg\task\send_welcome_emails;
-
 if ($hassiteconfig) {
     $settings = new admin_settingpage('local_sendwelcomemsg',
         get_string('pluginname', 'local_sendwelcomemsg'));
@@ -36,7 +34,7 @@ if ($hassiteconfig) {
         'tls' => get_string('smtpencryptiontls', 'local_sendwelcomemsg'),
     ];
 
-    for ($i = 1; $i <= send_welcome_emails::TEMPLATES; $i++) {
+    for ($i = 1; $i <= \local_sendwelcomemsg\task\send_welcome_emails::TEMPLATES; $i++) {
         // The "expanded" flag exists only to drive hide_if below; the settings.js
         // module hides it and lets the heading be clicked instead.
         $settings->add(new admin_setting_configcheckbox(
