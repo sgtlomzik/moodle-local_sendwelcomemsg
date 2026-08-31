@@ -2,6 +2,31 @@
 
 All notable changes to this plugin are documented in this file.
 
+## [1.1.1] - 2026-08-31
+
+### Fixed
+- **The privacy provider raised a fatal error.** `get_metadata()` called
+  `collection::add_user_data_external_location_link()`, which is not part of the
+  Privacy API and never has been, so every request for the plugin's metadata
+  died with `Call to undefined method`. That took down the plugin privacy
+  compliance report, the data registry and any data request touching this
+  plugin. It now calls `add_external_location_link()`, which is the real method.
+
+### Added
+- Privacy provider tests covering metadata, the contexts and users a person's
+  data is found in, the export, and all three deletion paths, including the
+  context levels the provider has to ignore. These are what found the fatal
+  error above.
+- Tests for the delivery task: its name and registration, the email domain
+  parsing, target domain matching, disabled templates, the retry of a failed
+  delivery, giving up on an entry that has been failing for a week, dropping
+  entries for missing users and users without an address, and the oldest-first
+  order the queue is worked in.
+- Tests for `local_sendwelcomemsg_pluginfile` refusing every request and for the
+  settings accordion heading loading its script once per page.
+- Observer tests for the registration of the user creation event, the recorded
+  queue time, and the guest account never being queued.
+
 ## [1.1.0] - 2026-08-28
 
 ### Security

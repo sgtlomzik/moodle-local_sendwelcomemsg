@@ -100,4 +100,89 @@ final class queue_test extends \advanced_testcase {
 
         $this->assertFalse($DB->record_exists('local_sendwelcomemsg_queue', ['userid' => $user->id]));
     }
+
+    /**
+     * The observer is registered for the user creation event.
+     */
+    public function test_the_observer_is_registered(): void {
+        $this->resetAfterTest();
+
+        $observers = \core\event\manager::get_all_observers();
+
+        $this->assertArrayHasKey('\\core\\event\\user_created', $observers);
+
+        $callbacks = array_map(static function ($observer) {
+            return $observer->callable;
+        }, $observers['\\core\\event\\user_created']);
+
+        $this->assertContains('\\local_sendwelcomemsg\\observer::user_created', $callbacks);
+    }
+
+    /**
+     * The queue entry records when the user was created.
+     */
+    public function test_the_queue_entry_records_the_time(): void {
+        global $DB;
+
+        $this->resetAfterTest();
+
+        $before = time();
+        $user = $this->getDataGenerator()->create_user();
+
+        $record = $DB->get_record('local_sendwelcomemsg_queue', ['userid' => $user->id], '*', MUST_EXIST);
+
+        $this->assertGreaterThanOrEqual($before, (int)$record->timecreated);
+        $this->assertLessThanOrEqual(time(), (int)$record->timecreated);
+    }
+
+    /**
+     * The guest account is never sent a welcome message.
+     */
+    public function test_the_guest_account_is_not_queued(): void {
+        global $CFG, $DB;
+
+        $this->resetAfterTest();
+
+        $DB->delete_records('local_sendwelcomemsg_queue', ['userid' => $CFG->siteguest]);
+
+        observer::user_created(\core\event\user_created::create_from_userid($CFG->siteguest));
+
+        $this->assertFalse($DB->record_exists('local_sendwelcomemsg_queue', ['userid' => $CFG->siteguest]));
+    }
+
+    /**
+     * Every new user gets their own queue entry.
+     */
+    public function test_each_new_user_is_queued_separately(): void {
+        global $DB;
+
+        $this->resetAfterTest();
+
+        $DB->delete_records('local_sendwelcomemsg_queue');
+
+        $first = $this->getDataGenerator()->create_user();
+        $second = $this->getDataGenerator()->create_user();
+
+        $this->assertEquals(2, $DB->count_records('local_sendwelcomemsg_queue'));
+        $this->assertTrue($DB->record_exists('local_sendwelcomemsg_queue', ['userid' => $first->id]));
+        $this->assertTrue($DB->record_exists('local_sendwelcomemsg_queue', ['userid' => $second->id]));
+    }
+
+    /**
+     * The task leaves other users on the queue when it clears one of them.
+     */
+    public function test_the_task_clears_the_whole_queue_when_nothing_is_enabled(): void {
+        global $DB;
+
+        $this->resetAfterTest();
+
+        $this->getDataGenerator()->create_user();
+        $this->getDataGenerator()->create_user();
+
+        ob_start();
+        (new send_welcome_emails())->execute();
+        ob_end_clean();
+
+        $this->assertEquals(0, $DB->count_records('local_sendwelcomemsg_queue'));
+    }
 }

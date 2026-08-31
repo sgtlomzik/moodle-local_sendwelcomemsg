@@ -55,7 +55,7 @@ class provider implements
             'timecreated' => 'privacy:metadata:queue:timecreated',
         ], 'privacy:metadata:queue');
 
-        $collection->add_user_data_external_location_link('smtp', [
+        $collection->add_external_location_link('smtp', [
             'email' => 'privacy:metadata:smtp:email',
             'fullname' => 'privacy:metadata:smtp:fullname',
         ], 'privacy:metadata:smtp');
